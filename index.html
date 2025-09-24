@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WebDesign</title>
+  <style>
+    :root{
+      --accent:#f87171; /* lighter red */
+      --accent-2:#fb7185; /* pinkish */
+      --text:#1f1f1f;
+      --bg:#fff5f5;
+      --muted:#374151;
+      --card-bg:#ffffff;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{
+      height:100%;
+      font-family:'Poppins',Inter,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      overflow-x:hidden;
+      scroll-behavior:smooth;
+    }
+
+    /* Hero */
+    header.hero{
+      position:relative;
+      height:100vh;
+      background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:40px;
+      overflow:hidden;
+      color:white;
+      z-index:0;
+    }
+    .hero .info{
+      position:relative;
+      z-index:1;
+      max-width:50%;
+      animation:slideUp 1s ease forwards;
+      opacity:0;
+    }
+    .hero .info h1{
+      font-size:44px;
+      line-height:1.2;
+      margin-bottom:16px;
+    }
+    .hero .info p{font-size:18px;color:#ffe4e6}
+    .hero .avatar{
+      position:relative;
+      z-index:1;
+      width:240px;height:240px;
+      border-radius:50%;
+      overflow:hidden;
+      border:6px solid rgba(255,255,255,0.8);
+      box-shadow:0 12px 40px rgba(0,0,0,0.3);
+      animation:slideRight 1.2s ease forwards;
+      opacity:0;
+    }
+    .hero .avatar img{width:100%;height:100%;object-fit:cover}
+
+    @keyframes slideUp{from{opacity:0;transform:translateY(80px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes slideRight{from{opacity:0;transform:translateX(80px)}to{opacity:1;transform:translateX(0)}}
+/*Services*/
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 20px;
+}
+.service-card {
+  border: 2px dashed var(--accent-2);
+  border-radius: 16px;
+  padding: 20px;
+  background: var(--card-bg);
+  position: relative;
+  transition: transform .3s, box-shadow .3s;
+  overflow: hidden;
+}
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+}
+.service-card h3 { margin-bottom: 8px; }
+.service-card p { margin-bottom: 12px; }
+.more-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .5s ease, opacity .5s ease;
+  opacity: 0;
+}
+.more-content ul { padding-left: 18px; }
+.more-content ul li { margin-bottom: 6px; color: var(--muted); }
+.service-card.expanded .more-content {
+  max-height: 200px;
+  opacity: 1;
+}
+.toggle-btn {
+  background: var(--accent);
+  border: none;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background .3s;
+}
+.toggle-btn:hover { background: var(--accent-2); }
+
+    /* Overlap effect */
+    main{
+      position:relative;
+      background:var(--card-bg);
+      margin-top:-120px;
+      border-top-left-radius:32px;
+      border-top-right-radius:32px;
+      z-index:2;
+      box-shadow:0 -6px 20px rgba(0,0,0,0.15);
+      padding:50px 20px;
+      animation:fadeInUp 1s ease forwards;
+      opacity:0;
+    }
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:translateY(0)}}
+
+    nav{
+      position:fixed;
+      top:20px;right:20px;
+      background:rgba(255,255,255,0.9);
+      padding:10px 16px;
+      border-radius:16px;
+      z-index:100;
+      box-shadow:0 2px 10px rgba(0,0,0,0.1);
+    }
+    nav a{
+      color:var(--text);
+      margin-left:14px;
+      text-decoration:none;
+      font-weight:500;
+      transition:color .3s;
+    }
+    nav a:hover{color:var(--accent-2)}
+
+    section{margin:60px auto;max-width:900px;opacity:0;transform:translateY(40px);transition:all .8s ease-out}
+    section.visible{opacity:1;transform:translateY(0)}
+
+    h2{margin-bottom:18px;color:var(--accent-2);font-size:26px}
+    p{line-height:1.6;color:var(--muted)}
+
+    /* Pricing sketchy style */
+    .pricing{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+    }
+    .price{
+      border:2px dashed var(--accent-2);
+      border-radius:16px;
+      padding:24px;
+      background:var(--card-bg);
+      position:relative;
+      overflow:hidden;
+      transition:transform .3s, box-shadow .3s;
+    }
+    .price:hover{
+      transform:translateY(-8px);
+      box-shadow:0 10px 20px rgba(0,0,0,0.1);
+    }
+    .price h3{margin-bottom:10px}
+    .price .cost{font-size:28px;font-weight:700;margin:8px 0;color:var(--accent-2)}
+
+    @media(max-width:768px){
+      header.hero{flex-direction:column;justify-content:center;text-align:center;padding:20px}
+      .hero .info{max-width:100%}
+      .hero .avatar{margin-top:20px;width:160px;height:160px}
+      .hero .info h1{font-size:30px}
+    }
+    /*slideshow*/
+  body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 20px;
+  background: #fff5f5;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.carousel-container {
+  overflow: hidden;
+  max-width: 900px;
+  margin: 0 auto;
+  cursor: grab;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 16px;
+  animation: scroll 20s linear infinite;
+}
+
+.carousel-container:active .carousel-track {
+  animation-play-state: paused; /* pause on drag */
+}
+
+.card {
+  flex: 0 0 280px;
+  height: 180px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Duplicate images for seamless loop */
+.carousel-track > *:nth-child(n+6) {
+  /* make second set identical to first for infinite effect */
+}
+
+/* Keyframes for continuous scroll */
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* move by half (one set of cards) */
+}
+/* Optional: hover effect */
+.card:hover {
+  transform: scale(1.05);
+}
+    /* Contact form */
+ 
+
+.contact-section {
+  max-width: 100%;      /* allow it to fill the constrained body width */
+  margin: 40px auto;    /* center vertically with top/bottom margin, horizontally auto */
+  text-align: center;   /* center text, icons, and links */
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* center the form and icons */
+  gap: 16px;            /* spacing between elements */
+}
+
+.contact-section h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.contact-section a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #25D366;
+  margin-bottom: 10px;
+}
+
+.wa-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #25D366;
+  color: #fff;
+  transition: transform 0.2s;
+}
+
+.wa-icon:hover {
+  animation: jump 0.4s ease;
+}
+
+@keyframes jump {
+  0% { transform: translateY(0); }
+  25% { transform: translateY(-6px); }
+  50% { transform: translateY(0); }
+  75% { transform: translateY(-3px); }
+  100% { transform: translateY(0); }
+}
+
+/* Form */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+input, textarea {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+button {
+  background: #f87171;
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #fb7185;
+}
+/*hookcard*/
+.hook-card {
+  background: #fff;
+  border: 2px dashed var(--accent-2);
+  border-radius: 16px;
+  padding: 24px 28px;
+  max-width: 850px;
+  margin: 0 auto 32px auto;
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  position: relative;
+  box-shadow: 6px 6px 0 rgba(0,0,0,0.2);
+}
+
+.hook-card p {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.6;
+  color: #333;
+}
+
+.hook-card .highlight {
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--accent);
+  text-shadow: 2px 2px rgba(0,0,0,0.15);
+  display: inline-block;
+  transform: rotate(-2deg);
+  animation: pop 1.2s ease forwards;
+}
+
+.hook-card .highlight-word {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent-2);
+  display: inline-block;
+  transform: rotate(-1deg);
+  animation: pulse 2s infinite alternate;
+}
+
+.hook-card .icon {
+  font-size: 24px;
+  margin: 0 6px;
+  display: inline-block;
+  transform: scale(1);
+  transition: transform .2s ease-in-out;
+  color: var(--accent-2);
+}
+
+.hook-card .icon:hover {
+  transform: scale(1.4) rotate(10deg);
+}
+
+/* Animations */
+@keyframes pop {
+  0% { transform: scale(0.5) rotate(-5deg); opacity: 0; }
+  60% { transform: scale(1.2) rotate(2deg); opacity: 1; }
+  100% { transform: scale(1) rotate(-2deg); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1) rotate(-1deg); }
+  100% { transform: scale(1.1) rotate(1deg); }
+}
+
+/*service bottom left*/
+.price-tag {
+  position: absolute;
+  bottom: 16px;
+  right: 16px; /* moved to bottom-right */
+  background: var(--accent);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.contact-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: var(--accent-2);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform .2s;
+}
+
+.contact-icon i {
+  font-size: 18px;
+  color: #fff;
+}
+
+.contact-icon:hover {
+  transform: scale(1.2);
+}
+/*max width*/
+body {
+  max-width: 700px;   /* maximum width of your site */
+  margin: 0 auto;      /* center horizontally */
+  padding: 0 16px;     /* optional side padding */
+  box-sizing: border-box;
+  background: var(--bg); /* keep your background color */
+  font-family: 'Poppins', sans-serif;
+}
+/*translate*/
+
+.fr-button {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f87171; /* main red accent */
+  border: 2px dashed #fb7185; /* sketchy style */
+  border-radius: 12px;
+  padding: 6px 12px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+  z-index: 999;
+}
+
+.fr-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+}
+
+.fr-button img {
+  display: block;
+}
+
+</style>
+
+</head>
+<body>
+<a href="indexFR.html" class="fr-button">
+  <img src="https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg" alt="FR" width="20">
+  FR
+</a>
+
+  <nav>
+    <a href="#services">Services</a>
+    <a href="#portfolio">Portfolio</a>
+  
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <header class="hero">
+    <div class="info">
+      <h1>Hello, I’m Mehmed</h1>
+      <p>I design & build modern websites, logos and marketing visuals, with hosting included.</p>
+    </div>
+    <div class="avatar">
+      <img src="1000065867(2).png" alt="Your photo">
+    </div>
+  </header>
+
+  <main>
+    <section id="services">
+  
+  <div class="hook-card">
+  <p>
+    <i class="bi bi-graph-up-arrow icon"></i>
+    <span class="highlight">Boost Visibility</span>, attract more clients, and grow your business online effortlessly with 
+    <i class="bi bi-laptop icon"></i> <span class="highlight-word">Modern</span> websites, 
+    <i class="bi bi-palette icon"></i> <span class="highlight-word">Impactful</span> logos, and 
+    <i class="bi bi-megaphone icon"></i> engaging marketing visuals.
+  </p>
+</div>
+  </div>
+</div>
+
+
+  <h2>Services</h2>
+  
+  <div class="services-grid">
+    
+    <div class="service-card">
+      <h3>Logo Design</h3>
+      <p>Unique, brand-focused logos to stand out.</p>
+      <div class="more-content">
+        <ul>
+          <li>3 initial logo concepts</li>
+          <li>2 rounds of revisions</li>
+          <li>Delivered in PNG + SVG</li>
+        </ul>
+      </div>
+                <div class="price-tag">€80</div>
+
+      <button class="toggle-btn">More</button>
+    </div>
+    <div class="service-card">
+      <h3>Web Design</h3>
+      <p>Beautiful, responsive websites tailored for you.</p>
+      <div class="more-content">
+        <ul>
+          <li>Custom responsive design</li>
+          <li>1–3 pages setup</li>
+          <li>Basic SEO</li>
+          <li>Modern, clean UI</li>
+        </ul>
+      </div>
+            <div class="price-tag">€300</div>
+
+      <button class="toggle-btn">More</button>
+    </div>  
+    <div class="service-card">
+      <h3>Hosting</h3>
+      <p>Secure hosting to keep your site online.</p>
+      <div class="more-content">
+        <ul>
+          <li>6 months hosting included</li>
+          <li>Domain setup support</li>
+          <li>SSL certificate</li>
+        </ul>
+      </div>
+      <div class="price-tag">€200 / 6 months</div>
+      <button class="toggle-btn">More</button>
+    </div>
+    <div class="service-card">
+      <h3>Marketing</h3>
+      <p>Boost your presence with visual marketing.</p>
+      <div class="more-content">
+        <ul>
+          <li>Social media graphics</li>
+          <li>Business cards / posters</li>
+          <li>Ad banners</li>
+        </ul>
+      </div>
+      <div class="price-tag contact-icon" title="Contact me for pricing">
+      <i class="bi bi-chat-dots-fill"></i>
+    </div>
+      <button class="toggle-btn">More</button>
+    </div>
+  </div>
+</section>
+
+
+
+    <section id="portfolio">
+      <h1>Portfolio</h1>
+  <div class="carousel-container" id="carousel">
+  <div class="carousel-track" id="track">
+    <div class="card"><img src="final ui.png" alt=""></div>
+    <div class="card"><img src="Group 12.png" alt=""></div>
+    <div class="card"><img src="final ui.png" alt=""></div>
+    <div class="card"><img src="Group 12.png" alt=""></div>
+    <div class="card"><img src="final ui.png" alt=""></div>
+    <div class="card"><img src="Group 12.png" alt=""></div>
+   
+  </div>
+</div>
+  <div class="contact-section">
+  <h2>Contact Me</h2>
+
+  <!-- WhatsApp -->
+  <a href="https://wa.me/38345300393" target="_blank">
+    <span>+383 45 300 393</span>
+    <span class="wa-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" viewBox="0 0 24 24">
+        <path d="M20.52 3.48A11.89 11.89 0 0 0 12 .25 11.86 11.86 0 0 0 3.5 7.96c-.66 2.47-.16 5.05 1.4 7.08L3 21l6.2-1.62A11.92 11.92 0 0 0 12 22c6.6 0 11.98-5.38 11.98-12 0-1.98-.5-3.82-1.46-5.02z"/>
+        <path d="M17 14.3c-.3.8-1.72 1.8-2.35 1.96-.6.16-1.2.28-2.23-.28-.84-.46-2.07-1.6-3.32-3.03-1.26-1.45-.95-2.18-.6-2.46.28-.24.64-.3 1-.16.4.15.94.5 1.36.83.34.26.65.52.9.75.32.28.62.26.95.12.4-.17 1.15-.53 1.76-.71.39-.12.72-.05.98.04.45.17 1.1.68 1.26 1.18.12.4.06.82-.07 1.2z" fill="#25D366"/>
+      </svg>
+    </span>
+  </a>
+
+  <!-- Email -->
+  <a href="mailto:you@example.com">abidinimehmed@gmail.com</a>
+
+  <!-- Form -->
+  <form action="https://formspree.io/f/mzzjbylo" method="POST">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="_replyto" placeholder="Your Email" required>
+    <textarea name="message" placeholder="Your Message" required></textarea>
+    <button type="submit">Send</button>
+  </form>
+</div>
+
+
+  <script>
+    // Scroll-triggered animations
+    const sections=document.querySelectorAll('section');
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){entry.target.classList.add('visible');}
+      });
+    },{threshold:0.2});
+    sections.forEach(sec=>observer.observe(sec));
+   
+
+   //cardconst carousel = document.getElementById('carousel');const carousel = document.getElementById('carousel');
+const track = document.getElementById('track');
+let isDragging = false, startX = 0, scrollLeft = 0;
+
+carousel.addEventListener('mousedown', e => {
+  isDragging = true;
+  startX = e.pageX - carousel.offsetLeft;
+  scrollLeft = track.scrollLeft;
+  track.style.animationPlayState = 'paused';
+  carousel.style.cursor = 'grabbing';
+});
+carousel.addEventListener('mouseup', () => {
+  isDragging = false;
+  track.style.animationPlayState = 'running';
+  carousel.style.cursor = 'grab';
+});
+carousel.addEventListener('mouseleave', () => {
+  isDragging = false;
+  track.style.animationPlayState = 'running';
+  carousel.style.cursor = 'grab';
+});
+carousel.addEventListener('mousemove', e => {
+  if(!isDragging) return;
+  const x = e.pageX - carousel.offsetLeft;
+  const walk = x - startX;
+  track.scrollLeft = scrollLeft - walk;
+});
+
+// touch support
+carousel.addEventListener('touchstart', e => {
+  isDragging = true;
+  startX = e.touches[0].pageX - carousel.offsetLeft;
+  scrollLeft = track.scrollLeft;
+  track.style.animationPlayState = 'paused';
+});
+carousel.addEventListener('touchend', () => {
+  isDragging = false;
+  track.style.animationPlayState = 'running';
+});
+carousel.addEventListener('touchmove', e => {
+  if(!isDragging) return;
+  const x = e.touches[0].pageX - carousel.offsetLeft;
+  const walk = x - startX;
+  track.scrollLeft = scrollLeft - walk;
+});
+
+//services 
+document.querySelectorAll('.toggle-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const card = btn.closest('.service-card');
+    card.classList.toggle('expanded');
+    btn.textContent = card.classList.contains('expanded') ? 'Less' : 'More';
+  });
+});
+
+</script>
+<footer style="text-align:center; padding:20px 0; background:#f8f8f8; margin-top:40px;">
+  <a href="https://github.com/mortred003" target="_blank" style="text-decoration:none; color:#333; display:inline-flex; align-items:center; gap:8px; font-weight:600;">
+    <!-- GitHub icon -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.13-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.27-1.68-1.27-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.75 2.67 1.24 3.32.95.1-.74.4-1.24.72-1.53-2.56-.29-5.26-1.28-5.26-5.72 0-1.26.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.06 11.06 0 0 1 2.9-.39c.98.01 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.62 1.59.23 2.76.11 3.05.73.8 1.17 1.82 1.17 3.08 0 4.45-2.7 5.42-5.27 5.7.41.36.77 1.08.77 2.18 0 1.58-.01 2.86-.01 3.25 0 .3.21.66.79.55C20.71 21.39 24 17.08 24 12c0-6.27-5.23-11.5-12-11.5z"/>
+    </svg>
+    mortred003
+  </a>
+</footer>
+</body>
+</html>
