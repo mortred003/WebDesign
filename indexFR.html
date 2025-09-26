@@ -201,7 +201,7 @@ h1 {
 .carousel-track {
   display: flex;
   gap: 16px;
-  animation: scroll 20s linear infinite;
+  animation: scroll 60s linear infinite;
 }
 
 .carousel-container:active .carousel-track {
@@ -223,15 +223,11 @@ h1 {
   display: block;
 }
 
-/* Duplicate images for seamless loop */
-.carousel-track > *:nth-child(n+6) {
-  /* make second set identical to first for infinite effect */
-}
 
 /* Keyframes for continuous scroll */
 @keyframes scroll {
   0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); } /* move by half (one set of cards) */
+  100% { transform: translateX(-300%); } /* move by half (one set of cards) */
 }
 /* Optional: hover effect */
 .card:hover {
