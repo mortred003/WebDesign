@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 // import { socials } from "../constants";
 
+
+
+
+
+
 const socials = [
   { name: "MEETING", href: "https://cal.com" },
   { name: "Twitter", href: "https://twitter.com" },

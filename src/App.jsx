@@ -10,6 +10,12 @@ import ContactSummary from "./sections/ContactSummary";
 import Contact from "./sections/Contact";
 import { useProgress } from "@react-three/drei";
 
+
+
+
+
+
+
 const App = () => {
   const { progress } = useProgress();
   const [isReady, setIsReady] = useState(false);
@@ -40,6 +46,7 @@ const App = () => {
           isReady ? "opacity-100" : "opacity-0"
         } transition-opacity duration-1000`}
       >
+    
         <Navbar />
         <Hero />
         <ServiceSummary />

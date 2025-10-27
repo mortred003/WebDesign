@@ -47,8 +47,8 @@ const About = () => {
       <div className="flex flex-col items-center justify-between gap-16 px-1 sm:px-1 md:px-3 lg:px-6 pb-16 text-xl font-light tracking-wide lg:flex-row md:text-2xl lg:text-3xl text-white/60 ultra-small-screen">
         <img
           ref={imgRef}
-          src="images/pfp.png"
-          alt="John Doe Smith"
+          src="images/mortred.png"
+          alt="oxmoered"
           className="w-md rounded-3xl"
         />
         <div className="w-full">
@@ -56,7 +56,7 @@ const About = () => {
           <div className="mt-4 space-y-2">
             <div className="flex items-center gap-3">
               <Icon icon="lucide:code" className="text-white/80" />
-              <span>Open-sourcing my latest experiment—because rising tides lift all ships</span>
+              <span></span>
             </div>
             <div className="flex items-center gap-3">
               <Icon icon="lucide:search" className="text-white/80" />
